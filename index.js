@@ -3,7 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 
 import { runCron } from './lib/scraper'
-import './lib/cron' // runs cron tasks
+// import './lib/cron' // runs cron tasks
 
 
 // Get app secrets
@@ -47,5 +47,5 @@ app.get('/api/data', async (req, res, next) => {
   )
 })
 
-const port = 5000
+const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`40 Hour Jammin Scraper running on http://localhost:${port}`))
