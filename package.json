@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "node -r esm index.js",
-    "start": "node index.js"
+    "start": "node -r esm index.js"
   },
   "author": "",
   "license": "ISC",
