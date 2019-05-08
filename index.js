@@ -3,7 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 
 import { runScraper } from './lib/scraper'
-// import './lib/cron' // runs cron tasks
+import './lib/cron' // runs cron tasks
 
 
 // Get app secrets
