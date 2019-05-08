@@ -3,7 +3,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 
 import { runCron } from './lib/scraper'
-import './lib/cron' // runs cron tasks
+// import './lib/cron' // runs cron tasks
 
 
 // Get app secrets
@@ -28,9 +28,9 @@ mongoose.set('useFindAndModify', false);
 
 const Donations = require('./models/donations-model')
 
-app.get('/api/scrape', async (req, res, next) => {
+/* app.get('/api/scrape', async (req, res, next) => {
   runCron(res)
-})
+}) */
 
 app.get('/api/data', async (req, res, next) => {
   // get the scrape data
