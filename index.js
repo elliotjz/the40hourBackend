@@ -29,7 +29,13 @@ mongoose.set('useFindAndModify', false);
 const Donations = require('./models/donations-model')
 
 app.get('/api/scrape', async (req, res, next) => {
-  saveLatestDonationData(res)
+  const result = saveLatestDonationData(res);
+
+  if (result.error) {
+    res.json({ error: result.error });
+  } else {
+    res.json({});
+  }
 })
 
 app.get('/api/data', async (req, res, next) => {
@@ -38,9 +44,9 @@ app.get('/api/data', async (req, res, next) => {
     { id: "1" },
     (err, donations) => {
       if (err) {
-        res.json({ error: err })
+        res.json({ error: err });
       } else {
-        res.json(donations)
+        res.json(donations);
       }
     }
   )
