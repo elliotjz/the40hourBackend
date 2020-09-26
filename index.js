@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 
-import { runScraper } from './lib/scraper'
+import { saveLatestDonationData } from './lib/scraper'
 import './lib/cron' // runs cron tasks
 
 
@@ -29,7 +29,7 @@ mongoose.set('useFindAndModify', false);
 const Donations = require('./models/donations-model')
 
 app.get('/api/scrape', async (req, res, next) => {
-  runScraper(res)
+  saveLatestDonationData(res)
 })
 
 app.get('/api/data', async (req, res, next) => {
