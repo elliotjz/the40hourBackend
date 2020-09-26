@@ -45,7 +45,9 @@ app.post('/api/scrape', async (req, res, next) => {
  * Get stored donation data
  */
 app.get('/api/data', async (req, res, next) => {
-  const donationData = await DonationsSnapshot.find({ campaign: CURRENT_CAMPAIGN });
+  const donationData = await DonationsSnapshot.find(
+    { campaign: CURRENT_CAMPAIGN }, {}, { sort: { 'date' : 1 } }
+  );
   res.json(donationData);
 });
 
