@@ -46,45 +46,5 @@ app.get('/api/data', async (req, res, next) => {
   )
 })
 
-/* app.get('/api/clean', async (req, res, next) => {
-  // Delete the useless scrapes
-  Donations.findOne(
-    { id: "1" },
-    (err, data) => {
-      if (err) {
-        res.json({ error: err })
-      } else {
-        const dataObj = data.toObject()
-        const scrapes = dataObj.donations
-        const filteredScrapes = []
-        let prevScrape = null
-        scrapes.forEach(scrape => {
-          if (!prevScrape ||
-            JSON.stringify(prevScrape.people) !== JSON.stringify(scrape.people)) {
-            // Either the scrape is the first one
-            // Or there are changes since the last scrape
-            // So add it to the filtered scrapes
-            filteredScrapes.push(scrape)
-          }
-          prevScrape = scrape
-        })
-
-        Donations.findOneAndUpdate(
-          { id: "1" },
-          { $set: { donations: filteredScrapes } },
-          (err, data) => {
-            if (err) {
-              console.log(`Error: ${err}`);
-              res.json({ error: err })
-            } else {
-              res.json({ success: true })
-            }
-          }
-        )
-      }
-    }
-  )
-}) */
-
 const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`40 Hour Jammin Scraper running on http://localhost:${port}`))
