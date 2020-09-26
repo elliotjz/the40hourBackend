@@ -4,6 +4,8 @@ import mongoose from 'mongoose'
 
 import { saveLatestDonationData } from './lib/scraper'
 import './lib/cron' // runs cron tasks
+import DonationsSnapshot from './models/donations-snapshot-model'
+import { CURRENT_CAMPAIGN } from './constants'
 
 
 // Get app secrets
@@ -26,9 +28,10 @@ mongoose.connect(uri, { useNewUrlParser: true }, () => {
 })
 mongoose.set('useFindAndModify', false);
 
-const Donations = require('./models/donations-model')
-
-app.get('/api/scrape', async (req, res, next) => {
+/**
+ * Scrape data from donation pages and save to DB
+ */
+app.post('/api/scrape', async (req, res, next) => {
   const result = await saveLatestDonationData();
 
   if (result.error) {
@@ -38,19 +41,13 @@ app.get('/api/scrape', async (req, res, next) => {
   }
 });
 
+/**
+ * Get stored donation data
+ */
 app.get('/api/data', async (req, res, next) => {
-  // get the scrape data
-  Donations.findOne(
-    { id: "1" },
-    (err, donations) => {
-      if (err) {
-        res.json({ error: err });
-      } else {
-        res.json(donations);
-      }
-    }
-  )
-})
+  const donationData = await DonationsSnapshot.find({ campaign: CURRENT_CAMPAIGN });
+  res.json(donationData);
+});
 
 const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`40 Hour Jammin Scraper running on http://localhost:${port}`))
