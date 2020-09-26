@@ -29,14 +29,14 @@ mongoose.set('useFindAndModify', false);
 const Donations = require('./models/donations-model')
 
 app.get('/api/scrape', async (req, res, next) => {
-  const result = saveLatestDonationData(res);
+  const result = await saveLatestDonationData();
 
   if (result.error) {
-    res.json({ error: result.error });
+    res.status(500).send(result.error);
   } else {
-    res.json({});
+    res.status(200).send();
   }
-})
+});
 
 app.get('/api/data', async (req, res, next) => {
   // get the scrape data
